@@ -1,0 +1,36 @@
+from tkinter import *
+import os
+
+def perform_shutdown(command):
+    os.system(command)
+
+def create_button(master, text, command):
+    button = Button(master, text=text, font=("Time New Roman", 20, "bold"),
+                    relief=RAISED, cursor="plus", command=command)
+    button.pack(fill="both", padx=10, pady=5)
+    return button
+
+def shutdown_app():
+    st = Tk()
+    st.title("ShutDown App")
+    st.geometry("500x500")
+    st.config(bg="Blue")
+
+    # Custom styling
+    st.option_add("*Button.background", "lightblue")
+    st.option_add("*Button.foreground", "black")
+    st.option_add("*Button.activebackground", "lightgreen")
+    st.option_add("*Button.activeforeground", "black")
+
+    label = Label(st, text="Select an option:", font=("Time New Roman", 25, "bold"))
+    label.pack(pady=20)
+
+    restart_button = create_button(st, "Restart", lambda: perform_shutdown("shutdown /r /t 1"))
+    restart_time_button = create_button(st, "Restart Time", lambda: perform_shutdown("shutdown /r /t 20"))
+    logout_button = create_button(st, "Log-Out", lambda: perform_shutdown("shutdown -1"))
+    shutdown_button = create_button(st, "Shutdown", lambda: perform_shutdown("shutdown /s /t 1"))
+
+    st.mainloop()
+
+if __name__ == "__main__":
+    shutdown_app()
